@@ -28,6 +28,7 @@ import java.util.PrimitiveIterator;
 import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.MiniMessageContext;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.VirtualComponent;
 import net.kyori.adventure.text.VirtualComponentRenderer;
@@ -103,7 +104,7 @@ abstract class AbstractColorChangingTag implements Modifying {
   public final Component apply(final Component current, final int depth) {
     if (this.emitVirtuals && depth == 0) {
       // capture state into a virtual component, no other logic is needed in normal MM handling
-      return Component.virtual(Void.class, new TagInfoHolder(this.preserveData(), current), current.style());
+      return Component.virtual(MiniMessageContext.class, new TagInfoHolder(this.preserveData(), current), current.style());
     }
 
     if ((this.disableApplyingColorDepth != -1 && depth > this.disableApplyingColorDepth) || current.style().color() != null) {
@@ -193,9 +194,9 @@ abstract class AbstractColorChangingTag implements Modifying {
   @Override
   public abstract String toString();
 
-  private record TagInfoHolder(Consumer<TokenEmitter> output, Component substitute) implements VirtualComponentRenderer<Void>, Emitable {
+  private record TagInfoHolder(Consumer<TokenEmitter> output, Component substitute) implements VirtualComponentRenderer<MiniMessageContext>, Emitable {
     @Override
-    public @UnknownNullability ComponentLike apply(final Void context) {
+    public @UnknownNullability ComponentLike apply(final MiniMessageContext context) {
       return this.substitute;
     }
 

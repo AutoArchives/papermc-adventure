@@ -25,12 +25,13 @@ package net.kyori.adventure.text.minimessage.translation;
 
 import java.util.Objects;
 import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.MiniMessageContext;
 import net.kyori.adventure.text.VirtualComponentRenderer;
 import net.kyori.adventure.text.minimessage.internal.TagInternals;
 import net.kyori.adventure.text.minimessage.tag.TagPattern;
 import org.jetbrains.annotations.UnknownNullability;
 
-record MiniMessageTranslatorArgument<T>(String name, T data) implements VirtualComponentRenderer<Void> {
+record MiniMessageTranslatorArgument<T>(String name, T data) implements VirtualComponentRenderer<MiniMessageContext> {
   MiniMessageTranslatorArgument(final @TagPattern String name, final T data) {
     Objects.requireNonNull(name, "name");
     Objects.requireNonNull(data, "data");
@@ -41,7 +42,7 @@ record MiniMessageTranslatorArgument<T>(String name, T data) implements VirtualC
   }
 
   @Override
-  public @UnknownNullability ComponentLike apply(final Void context) {
+  public @UnknownNullability ComponentLike apply(final MiniMessageContext context) {
     if (this.data instanceof ComponentLike componentLike) {
       return componentLike;
     } else {

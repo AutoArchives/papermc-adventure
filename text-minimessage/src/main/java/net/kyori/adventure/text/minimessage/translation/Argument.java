@@ -26,6 +26,7 @@ package net.kyori.adventure.text.minimessage.translation;
 import net.kyori.adventure.pointer.Pointered;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
+import net.kyori.adventure.text.MiniMessageContext;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.TranslationArgument;
 import net.kyori.adventure.text.TranslationArgumentLike;
@@ -125,7 +126,7 @@ public final class Argument {
    * @since 4.20.0
    */
   public static ComponentLike argument(final @TagPattern String name, final TranslationArgument argument) {
-    return Component.virtual(Void.class, new MiniMessageTranslatorArgument<>(name, requireNonNull(argument, "argument")));
+    return Component.virtual(MiniMessageContext.class, new MiniMessageTranslatorArgument<>(name, requireNonNull(argument, "argument")));
   }
 
   /**
@@ -137,7 +138,7 @@ public final class Argument {
    * @since 4.20.0
    */
   public static ComponentLike tag(final @TagPattern String name, final Tag tag) {
-    return Component.virtual(Void.class, new MiniMessageTranslatorArgument<>(name, requireNonNull(tag, "tag")));
+    return Component.virtual(MiniMessageContext.class, new MiniMessageTranslatorArgument<>(name, requireNonNull(tag, "tag")));
   }
 
   /**
@@ -171,7 +172,7 @@ public final class Argument {
    */
   public static ComponentLike tagResolver(final TagResolver tagResolver) {
     // The name field is unused here.
-    return Component.virtual(Void.class, new MiniMessageTranslatorArgument<>("unused", requireNonNull(tagResolver, "tagResolver")));
+    return Component.virtual(MiniMessageContext.class, new MiniMessageTranslatorArgument<>("unused", requireNonNull(tagResolver, "tagResolver")));
   }
 
   /**
@@ -182,6 +183,6 @@ public final class Argument {
    * @since 4.20.0
    */
   public static ComponentLike target(final Pointered target) {
-    return Component.virtual(Void.class, new MiniMessageTranslatorTarget(requireNonNull(target, "target")));
+    return Component.virtual(MiniMessageContext.class, new MiniMessageTranslatorTarget(requireNonNull(target, "target")));
   }
 }

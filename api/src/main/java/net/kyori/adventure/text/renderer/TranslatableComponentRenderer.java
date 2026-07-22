@@ -35,6 +35,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentBuilder;
 import net.kyori.adventure.text.EntityNBTComponent;
 import net.kyori.adventure.text.KeybindComponent;
+import net.kyori.adventure.text.MiniMessageContext;
 import net.kyori.adventure.text.NBTComponent;
 import net.kyori.adventure.text.NBTComponentBuilder;
 import net.kyori.adventure.text.ObjectComponent;
@@ -209,7 +210,7 @@ public abstract class TranslatableComponentRenderer<C> extends AbstractComponent
         final List<TranslationArgument> translatedArguments = new ArrayList<>(arguments);
         for (int i = 0; i < translatedArguments.size(); i++) {
           final TranslationArgument arg = translatedArguments.get(i);
-          if (arg.value() instanceof Component && !(arg.value() instanceof VirtualComponent)) {
+          if (arg.value() instanceof Component && (!(arg.value() instanceof final VirtualComponent virtual) || virtual.contextType() != MiniMessageContext.class)) {
             translatedArguments.set(i, TranslationArgument.component(this.render((Component) arg.value(), context)));
           }
         }

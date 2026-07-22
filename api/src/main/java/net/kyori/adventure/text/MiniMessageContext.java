@@ -21,18 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.kyori.adventure.text.minimessage.translation;
+package net.kyori.adventure.text;
 
-import net.kyori.adventure.pointer.Pointered;
-import net.kyori.adventure.text.ComponentLike;
-import net.kyori.adventure.text.MiniMessageContext;
-import net.kyori.adventure.text.VirtualComponentRenderer;
-import org.jetbrains.annotations.UnknownNullability;
-
-record MiniMessageTranslatorTarget(Pointered pointered) implements VirtualComponentRenderer<MiniMessageContext> {
-
-  @Override
-  public @UnknownNullability ComponentLike apply(final MiniMessageContext context) {
-    return null;
+/**
+ * A marker class for distinguishing MiniMessage within a {@link VirtualComponent}.
+ *
+ * @since 5.2.1
+ */
+public final class MiniMessageContext {
+  private MiniMessageContext() {
   }
 }
